@@ -218,6 +218,7 @@
                                             <th>Cut</th>
                                             <th>Womens</th>
                                             <th>Mens</th>
+                                            <th>Rating</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -226,11 +227,38 @@
                                                         ->where('publication_status',1)
                                                         ->get();
 
-                                foreach ($all_cuting_price as $pms_cuting_price) {?>
+                                foreach ($all_cuting_price as $pms_cuting_price) {
+
+                                    $rating     =   DB::table('feedback')
+                                                        ->where('service_name', $pms_cuting_price->cuting_price_name)
+                                                        ->avg('rating');
+                                    $rating     =   round($rating);
+
+                                    ?>
                                         <tr>
                                             <td>{{$pms_cuting_price->cuting_price_name}}</td>
                                             <td>{{$pms_cuting_price->cuting_price_women}}tk</td>
                                             <td>{{$pms_cuting_price->cuting_price_mens}}tk</td>
+                                            <td data-service-name="{{$pms_cuting_price->cuting_price_name}}">
+
+                                                @if($rating == 0)
+                                                    No rating available
+                                                @else
+                                                <a href="javascript:void(0);" class="btn-rating" title="Click to view commnets.">
+                                                    <span class="star-rating-show">
+                                                      @for($i = 1; $i<= 5 ; $i++)
+                                                          @if($i <= $rating )
+                                                                <img src="data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMjBweCIgaGVpZ2h0PSIyMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDIwIDIwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48cG9seWdvbiBmaWxsPSIjRkZERjg4IiBwb2ludHM9IjEwLDAgMTMuMDksNi41ODMgMjAsNy42MzkgMTUsMTIuNzY0IDE2LjE4LDIwIDEwLDE2LjU4MyAzLjgyLDIwIDUsMTIuNzY0IDAsNy42MzkgNi45MSw2LjU4MyAiLz48L3N2Zz4=" alt="Red dot" />
+
+                                                            @else
+                                                                <img src="data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMjBweCIgaGVpZ2h0PSIyMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDIwIDIwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48cG9seWdvbiBmaWxsPSIjREREREREIiBwb2ludHM9IjEwLDAgMTMuMDksNi41ODMgMjAsNy42MzkgMTUsMTIuNzY0IDE2LjE4LDIwIDEwLDE2LjU4MyAzLjgyLDIwIDUsMTIuNzY0IDAsNy42MzkgNi45MSw2LjU4MyAiLz48L3N2Zz4=" alt="Red dot" />
+
+                                                            @endif
+                                                       @endfor
+                                                    </span>
+                                                </a>
+                                                @endif
+                                            </td>
                                         </tr>
                                        <?php } ?>  
                                     </tbody>
@@ -250,6 +278,8 @@
                                             <th>facial</th>
                                             <th>Womens</th>
                                             <th>Mens</th>
+                                            <th>Rating</th>
+
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -258,11 +288,38 @@
                                                         ->where('publication_status',1)
                                                         ->get();
 
-                                foreach ($all_special_price as $pms_special_price) {?>
+                                foreach ($all_special_price as $pms_special_price) {
+
+                                    $rating     =   DB::table('feedback')
+                                        ->where('service_name', $pms_special_price->special_price_name)
+                                        ->avg('rating');
+                                    $rating     =   round($rating);
+
+                                    ?>
                                         <tr>
                                             <td>{{$pms_special_price->special_price_name}}</td>
                                             <td>{{$pms_special_price->special_price_women}}tk</td>
                                             <td>{{$pms_special_price->special_price_mens}}tk</td>
+                                            <td data-service-name="{{$pms_special_price->special_price_name}}">
+
+                                                @if($rating == 0)
+                                                    No rating available
+                                                @else
+                                                    <a href="javascript:void(0);" class="btn-rating" title="Click to view commnets.">
+                                                    <span class="star-rating-show">
+                                                      @for($i = 1; $i<= 5 ; $i++)
+                                                            @if($i <= $rating )
+                                                                <img src="data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMjBweCIgaGVpZ2h0PSIyMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDIwIDIwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48cG9seWdvbiBmaWxsPSIjRkZERjg4IiBwb2ludHM9IjEwLDAgMTMuMDksNi41ODMgMjAsNy42MzkgMTUsMTIuNzY0IDE2LjE4LDIwIDEwLDE2LjU4MyAzLjgyLDIwIDUsMTIuNzY0IDAsNy42MzkgNi45MSw2LjU4MyAiLz48L3N2Zz4=" alt="Red dot" />
+
+                                                            @else
+                                                                <img src="data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMjBweCIgaGVpZ2h0PSIyMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDIwIDIwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48cG9seWdvbiBmaWxsPSIjREREREREIiBwb2ludHM9IjEwLDAgMTMuMDksNi41ODMgMjAsNy42MzkgMTUsMTIuNzY0IDE2LjE4LDIwIDEwLDE2LjU4MyAzLjgyLDIwIDUsMTIuNzY0IDAsNy42MzkgNi45MSw2LjU4MyAiLz48L3N2Zz4=" alt="Red dot" />
+
+                                                            @endif
+                                                        @endfor
+                                                    </span>
+                                                    </a>
+                                                @endif
+                                            </td>
                                         </tr>
                                        <?php } ?> 
                                     </tbody>
@@ -323,6 +380,8 @@
                                             <th>Services</th>
                                             <th>Womens</th>
                                             <th>Mens</th>
+                                            <th>Rating</th>
+
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -331,11 +390,36 @@
                                                         ->where('publication_status',1)
                                                         ->get();
 
-                                foreach ($all_other_price as $pms_other_price) {?>
+                                foreach ($all_other_price as $pms_other_price) {
+                                        $rating     =   DB::table('feedback')
+                                            ->where('service_name', $pms_other_price->other_price_name)
+                                            ->avg('rating');
+                                        $rating     =   round($rating);
+                                        ?>
                                         <tr>
                                             <td>{{$pms_other_price->other_price_name}}</td>
                                             <td>{{$pms_other_price->other_price_women}}tk</td>
                                             <td>{{$pms_other_price->other_price_mens}}tk</td>
+                                            <td data-service-name="{{$pms_other_price->other_price_name}}">
+
+                                                @if($rating == 0)
+                                                    No rating available
+                                                @else
+                                                    <a href="javascript:void(0);" class="btn-rating" title="Click to view commnets.">
+                                                    <span class="star-rating-show">
+                                                      @for($i = 1; $i<= 5 ; $i++)
+                                                            @if($i <= $rating )
+                                                                <img src="data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMjBweCIgaGVpZ2h0PSIyMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDIwIDIwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48cG9seWdvbiBmaWxsPSIjRkZERjg4IiBwb2ludHM9IjEwLDAgMTMuMDksNi41ODMgMjAsNy42MzkgMTUsMTIuNzY0IDE2LjE4LDIwIDEwLDE2LjU4MyAzLjgyLDIwIDUsMTIuNzY0IDAsNy42MzkgNi45MSw2LjU4MyAiLz48L3N2Zz4=" alt="Red dot" />
+
+                                                            @else
+                                                                <img src="data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMjBweCIgaGVpZ2h0PSIyMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDIwIDIwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48cG9seWdvbiBmaWxsPSIjREREREREIiBwb2ludHM9IjEwLDAgMTMuMDksNi41ODMgMjAsNy42MzkgMTUsMTIuNzY0IDE2LjE4LDIwIDEwLDE2LjU4MyAzLjgyLDIwIDUsMTIuNzY0IDAsNy42MzkgNi45MSw2LjU4MyAiLz48L3N2Zz4=" alt="Red dot" />
+
+                                                            @endif
+                                                        @endfor
+                                                    </span>
+                                                    </a>
+                                                @endif
+                                            </td>
                                         </tr>
                                      <?php } ?>   
                                     </tbody>
@@ -671,6 +755,24 @@
                 <!-- modal-content -->
             </div>
         </div>
+
+        <div class="modal fade" id="feedbackModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h3 class="text-center">Feedbacks of service <span id="servce-name-id"></span></h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="feedback-data">
+
+                        </div>
+                    </div>
+                    <!-- modal-body -->
+                </div>
+                <!-- modal-content -->
+            </div>
+        </div>
         <!-- END Modal -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript">
@@ -689,7 +791,49 @@
         
         $('#txtDate').attr('min', minDate);
     });
+
+
+    $(document).on('click', '.btn-rating', function(e) {
+        e.preventDefault();
+        var that             =   $(this);
+        var serviceName      =   that.closest('td').data('service-name');
+        $("#servce-name-id").text(serviceName);
+
+        $.ajax({
+            beforeSend: function(){
+
+            },
+            success: function(data){
+                var html    =   "";
+                $("#feedbackModal").modal('show');
+                $(".feedback-data").html('');
+
+                $.each( data.feedBacks , function( key, value ) {
+
+                    html  += "<div class=\"row\">\n" +
+                        "           <div class=\"col-lg-4\">\n<b>" +
+                                        value.usr_first_name + " : </b> " +
+                        "           </div>\n" +
+                        "           <div class=\"col-lg-8-\">\n" +
+                                        value.cmnt +
+                        "           </div>\n" +
+                        "        </div> <hr>";
+                });
+
+                $(".feedback-data").html(html);
+
+            },
+            type: 'POST',
+            url:'{{ url("get_all_feedback") }}',
+            data: {
+                "_token": "{{ csrf_token() }}",
+                "serviceName" : serviceName
+            },
+            cache: false,
+            dataType: 'json'
+        });
+    });
 </script>
 
 
-        @endsection
+@endsection

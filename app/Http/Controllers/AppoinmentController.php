@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\BookMail;
 use Illuminate\Http\Request;
 use DB;
 use App\Http\Requests;
@@ -30,12 +31,18 @@ class AppoinmentController extends Controller
      	$data['datepick']=$request->datepick;
      	$data['timepick']=$request->timepick;
         $data['status']=0;
-     	DB::table('tbl_add_appoinment')->insert($data);
-		      $notification=array(
-                                    'messege'=>'Appointment save success',
-                                    'alert-type'=>'success'
-                                     );
-            return Redirect()->back()->with($notification);
+
+
+        $appointId = DB::table('tbl_add_appoinment')->insertGetId($data);
+
+     	Mail::to($data['email'])->queue( new BookMail($data , $appointId));
+
+        $notification=array(
+            'messege'=>'Appointment save success',
+            'alert-type'=>'success'
+         );
+
+		return Redirect()->back()->with($notification);
      }
 
      public function all_appoinment()

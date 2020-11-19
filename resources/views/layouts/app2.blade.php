@@ -39,7 +39,8 @@
         <link rel="stylesheet" href="{{asset('public/frontend/css/venobox.css')}}">
         <!-- style css -->
         <link rel="stylesheet" href="{{asset('public/frontend/css/style.css')}}">
-        
+        <link rel="stylesheet" href="{{asset('public/css/style.css')}}">
+
         <!-- responsive css -->
         <link rel="stylesheet" href="{{asset('public/frontend/css/responsive.css')}}">
 

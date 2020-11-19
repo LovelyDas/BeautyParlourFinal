@@ -163,6 +163,11 @@ Route::get('/copyright/{id}','SettingsController@copyright');
 Route::post('/save-copyright/{id}','SettingsController@update_copyright');
 
 
+Route::get('/rate-service/{id}','FeedBackController@index');
+Route::post('/feedbackAdd','FeedBackController@feedBackAdd');
+Route::post('/get_all_feedback','FeedBackController@getFeedBacks');
+
+
 
 
 
